@@ -11,7 +11,6 @@ type UuidAdapter struct {
 }
 
 func (ud *UuidAdapter) Generate() model.Uuid {
-
 	uuid, _ := uuid.NewV4()
 
 	return model.NewUuid(uuid.String())
