@@ -1,2 +1,2 @@
 test-coverage:
-	- go test -coverprofile cover.out ./... && go tool cover -html=cover.out
+	- go test -coverprofile ./report/cover.out ./... && go tool cover -html=./report/cover.out

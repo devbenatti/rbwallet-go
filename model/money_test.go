@@ -2,7 +2,7 @@ package model
 
 import "testing"
 
-func TestNew(t *testing.T) {
+func TestNewMoney(t *testing.T) {
 	m := NewMoney(50.51)
 
 	if m.Amount() != 50.51 {
