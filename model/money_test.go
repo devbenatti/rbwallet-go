@@ -5,8 +5,8 @@ import "testing"
 func TestNewMoney(t *testing.T) {
 	m := NewMoney(50.51)
 
-	if m.Amount() != 50.51 {
-		t.Errorf("expect '%.2f', result '%.2f'", 50.51, m.Amount())
+	if m.Val() != 50.51 {
+		t.Errorf("expect '%.2f', result '%.2f'", 50.51, m.Val())
 	}
 }
 
@@ -37,7 +37,7 @@ func TestAdd(t *testing.T) {
 		t.Run("Add money", func(t *testing.T) {
 			result := tt.money.Add(tt.moneyToAdd)
 			if !result.Equals(tt.expected) {
-				t.Errorf("result %.2f expect %.2f", result.Amount(), tt.expected)
+				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
 			}
 		})
 	}
@@ -70,7 +70,7 @@ func TestSubtract(t *testing.T) {
 		t.Run("Add money", func(t *testing.T) {
 			result := tt.money.Subtract(tt.moneyToSubtract)
 			if !result.Equals(tt.expected) {
-				t.Errorf("result %.2f expect %.2f", result.Amount(), tt.expected)
+				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
 			}
 		})
 	}

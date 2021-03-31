@@ -12,7 +12,7 @@ type Money struct {
 	amount *Amount
 }
 
-func (m *Money) Amount() float64 {
+func (m *Money) Val() float64 {
 	return m.amount.val
 }
 
