@@ -1,4 +1,4 @@
-package infra
+package driven
 
 import (
 	"github.com/devbenatti/rbwallet-go/model"
