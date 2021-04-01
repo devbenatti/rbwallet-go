@@ -1,7 +1,7 @@
-package driven
+package uuid
 
-import "github.com/devbenatti/rbwallet-go/model"
+import "github.com/devbenatti/rbwallet-go/model/valueObject"
 
 type UuidGenerator interface {
-	Generate() model.Uuid
+	Generate() valueObject.Uuid
 }

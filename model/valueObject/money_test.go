@@ -1,4 +1,4 @@
-package model
+package valueObject
 
 import "testing"
 
@@ -12,8 +12,8 @@ func TestNewMoney(t *testing.T) {
 
 func TestAdd(t *testing.T) {
 	testsAdd := []struct {
-		money      *Money
-		moneyToAdd *Money
+		money      Money
+		moneyToAdd Money
 		expected   float64
 	}{
 		{
@@ -45,8 +45,8 @@ func TestAdd(t *testing.T) {
 
 func TestSubtract(t *testing.T) {
 	testsAdd := []struct {
-		money           *Money
-		moneyToSubtract *Money
+		money           Money
+		moneyToSubtract Money
 		expected        float64
 	}{
 		{
@@ -69,6 +69,34 @@ func TestSubtract(t *testing.T) {
 	for _, tt := range testsAdd {
 		t.Run("Add money", func(t *testing.T) {
 			result := tt.money.Subtract(tt.moneyToSubtract)
+			if !result.Equals(tt.expected) {
+				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
+			}
+		})
+	}
+}
+
+func TestMultiply(t *testing.T) {
+	testsAdd := []struct {
+		money    Money
+		m        int
+		expected float64
+	}{
+		{
+			money:    NewMoney(111.10),
+			m:        -1,
+			expected: -111.10,
+		},
+		{
+			money:    NewMoney(-111.10),
+			m:        -1,
+			expected: 111.10,
+		},
+	}
+
+	for _, tt := range testsAdd {
+		t.Run("Multiply money", func(t *testing.T) {
+			result := tt.money.Multiply(tt.m)
 			if !result.Equals(tt.expected) {
 				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
 			}

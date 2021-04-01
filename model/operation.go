@@ -1,11 +1,11 @@
 package model
 
 type OperationType int
-type FlowType int
+type Flow int
 
 const (
-	outFlow FlowType = 1
-	inFlow  FlowType = 2
+	outFlow Flow = 1
+	inFlow  Flow = 2
 
 	cashPurchase        OperationType = 1
 	installmentPurchase OperationType = 2
@@ -15,35 +15,31 @@ const (
 
 type Operation struct {
 	operationType OperationType
+	flow          Flow
 }
 
-func (fp FlowType) isOutFlow() bool {
+func (fp Flow) IsOutFlow() bool {
 	return fp == outFlow
-}
-
-func (o *Operation) Type() OperationType {
-	return o.operationType
 }
 
 func NewOperation(opt int) Operation {
 	return Operation{
 		operationType: OperationType(opt),
+		flow:          getFlow(OperationType(opt)),
 	}
 }
 
-func (o *Operation) FlowType() FlowType {
-	flows := getFlows()
-
-	return flows[o.operationType]
+func (o *Operation) Flow() Flow {
+	return o.flow
 }
 
-func getFlows() map[OperationType]FlowType {
-	flows := map[OperationType]FlowType{
+func getFlow(ot OperationType) Flow {
+	flows := map[OperationType]Flow{
 		cashPurchase:        outFlow,
 		installmentPurchase: outFlow,
 		withdraw:            outFlow,
 		payment:             inFlow,
 	}
 
-	return flows
+	return flows[ot]
 }

@@ -1,4 +1,4 @@
-package driven
+package uuid
 
 import (
 	"testing"
