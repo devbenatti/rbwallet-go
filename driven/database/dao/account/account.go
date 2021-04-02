@@ -14,10 +14,9 @@ func NewAccountDAO() Account {
 	return Account{}
 }
 
-func (a *Account) Create(ac dto.AccountDTO) error {
-	return nil
+func (a *Account) Create(ac dto.AccountDTO) {
 }
 
-func (a *Account) FindByID(id valueObject.Uuid) (*dto.AccountDTO, error) {
-	return &dto.AccountDTO{}, nil
+func (a *Account) FindByID(id valueObject.Uuid) *dto.AccountDTO {
+	return &dto.AccountDTO{}
 }

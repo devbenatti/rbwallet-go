@@ -21,3 +21,5 @@ func (a *AccountDTO) ID() valueObject.Uuid {
 func (a *AccountDTO) DocumentIdentifier() string {
 	return a.documentIdentifier
 }
+
+// asdasd

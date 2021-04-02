@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: godockerDB
+    environment:
+      MYSQL_DATABASE: onepuchman
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./db:/var/lib/mysql
+  app: 
+    build: .
+    dns: 8.8.8.8
+    ports: 
+      - 8080:8080
+    volumes: 
+      - .:/app
+    depends_on: 
+      - db
+    links:
+      - db

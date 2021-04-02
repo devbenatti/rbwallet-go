@@ -6,6 +6,6 @@ import (
 )
 
 type AccountDAO interface {
-	Create(a dto.AccountDTO) error
-	FindByID(id valueObject.Uuid) (*dto.AccountDTO, error)
+	Create(a dto.AccountDTO)
+	FindByID(id valueObject.Uuid) *dto.AccountDTO
 }

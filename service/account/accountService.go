@@ -17,20 +17,9 @@ func NewAccountService(ad dao.AccountDAO) AccountService {
 }
 
 func (as *AccountService) Create(a dto.AccountDTO) {
-	err := as.accountDAO.Create(a)
-
-	if err != nil {
-
-	}
-
+	as.accountDAO.Create(a)
 }
 
-func (as *AccountService) FindOne(id valueObject.Uuid) (*dto.AccountDTO, error) {
-	account, err := as.accountDAO.FindByID(id)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return account, nil
+func (as *AccountService) FindOne(id valueObject.Uuid) *dto.AccountDTO {
+	return as.accountDAO.FindByID(id)
 }
