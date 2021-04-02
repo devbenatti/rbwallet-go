@@ -12,8 +12,8 @@ func TestNewMoney(t *testing.T) {
 
 func TestAdd(t *testing.T) {
 	testsAdd := []struct {
-		money      Money
-		moneyToAdd Money
+		money      *Money
+		moneyToAdd *Money
 		expected   float64
 	}{
 		{
@@ -45,8 +45,8 @@ func TestAdd(t *testing.T) {
 
 func TestSubtract(t *testing.T) {
 	testsAdd := []struct {
-		money           Money
-		moneyToSubtract Money
+		money           *Money
+		moneyToSubtract *Money
 		expected        float64
 	}{
 		{
@@ -78,7 +78,7 @@ func TestSubtract(t *testing.T) {
 
 func TestMultiply(t *testing.T) {
 	testsAdd := []struct {
-		money    Money
+		money    *Money
 		m        int
 		expected float64
 	}{

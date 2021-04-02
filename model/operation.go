@@ -3,10 +3,6 @@ package model
 type OperationType int
 type flow int
 
-func (fp flow) IsOutFlow() bool {
-	return fp == outFlow
-}
-
 const (
 	outFlow flow = 1
 	inFlow  flow = 2
@@ -16,6 +12,10 @@ const (
 	withdraw            OperationType = 3
 	payment             OperationType = 4
 )
+
+func (fp flow) IsOutFlow() bool {
+	return fp == outFlow
+}
 
 type Operation struct {
 	operationType OperationType
