@@ -103,3 +103,28 @@ func TestMultiply(t *testing.T) {
 		})
 	}
 }
+
+func TestNegative(t *testing.T) {
+	testsAdd := []struct {
+		money    *Money
+		expected float64
+	}{
+		{
+			money:    NewMoney(111.10),
+			expected: -111.10,
+		},
+		{
+			money:    NewMoney(-111.10),
+			expected: -111.10,
+		},
+	}
+
+	for _, tt := range testsAdd {
+		t.Run("Negative money", func(t *testing.T) {
+			tt.money.Negative()
+			if tt.money.Val() != tt.expected {
+				t.Errorf("result %.2f expect %.2f", tt.money.Val(), tt.expected)
+			}
+		})
+	}
+}

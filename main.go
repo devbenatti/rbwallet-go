@@ -1,14 +1,13 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/go-sql-driver/mysql"
+	"github.com/devbenatti/rbwallet-go/driven/database"
 	"github.com/gorilla/mux"
 )
 
@@ -18,34 +17,21 @@ type Employee struct {
 	City string
 }
 
-func dbConn() (db *sql.DB) {
-
-	dbConfig := mysql.NewConfig()
-	dbConfig.User = "root"
-	dbConfig.Passwd = "root"
-	dbConfig.Addr = "godockerDB"
-	dbConfig.DBName = "onepuchman"
-	dbConfig.Net = "tcp"
-
-	//"root:root@tcp(godockerDB)/onepuchman"
-	db, err := sql.Open("mysql", dbConfig.FormatDSN())
-	if err != nil {
-		panic(err.Error())
-	}
-	return db
-}
-
 func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/foo", func(w http.ResponseWriter, r *http.Request) {
-		db := dbConn()
+		db := database.GetConnection()
+
 		defer db.Close()
 		selDB, err := db.Query("SELECT * FROM employee ORDER BY id DESC")
+
 		if err != nil {
 			panic(err.Error())
 		}
-		emp := Employee{}
+
+		var emp = Employee{}
+
 		for selDB.Next() {
 			var id int
 			var name, city string
