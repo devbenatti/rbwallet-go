@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/devbenatti/rbwallet-go/driven/database/dao"
+	dao "github.com/devbenatti/rbwallet-go/driven/database/dao/transaction"
 	dto "github.com/devbenatti/rbwallet-go/dto/transaction"
 )
 

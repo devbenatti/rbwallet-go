@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/devbenatti/rbwallet-go/driven/database/dao"
+	dao "github.com/devbenatti/rbwallet-go/driven/database/dao/transaction"
 	dto "github.com/devbenatti/rbwallet-go/dto/transaction"
 	"github.com/devbenatti/rbwallet-go/model/valueObject"
 )
