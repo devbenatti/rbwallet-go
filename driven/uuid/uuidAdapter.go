@@ -10,6 +10,10 @@ var _ UuidGenerator = (*UuidAdapter)(nil)
 type UuidAdapter struct {
 }
 
+func NewUuidGenerator() *UuidAdapter {
+	return &UuidAdapter{}
+}
+
 func (ud *UuidAdapter) Generate() valueObject.Uuid {
 	uuid, _ := uuid.NewV4()
 
