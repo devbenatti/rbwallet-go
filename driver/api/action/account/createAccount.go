@@ -2,11 +2,12 @@ package action
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 
+	"github.com/devbenatti/rbwallet-go/driven/database"
+	dao "github.com/devbenatti/rbwallet-go/driven/database/dao/account"
 	"github.com/devbenatti/rbwallet-go/driven/uuid"
-	"github.com/devbenatti/rbwallet-go/driver/webApi/action"
+	"github.com/devbenatti/rbwallet-go/driver/api/action"
 	dto "github.com/devbenatti/rbwallet-go/dto/account"
 	service "github.com/devbenatti/rbwallet-go/service/account"
 )
@@ -15,22 +16,22 @@ var _ action.Action = (*CreateAccount)(nil)
 
 type CreateAccount struct {
 	uuid    uuid.UuidGenerator
+	dao     dao.AccountDAO
 	service service.AccountService
 }
 
-func NewCreateAccount(uuid uuid.UuidGenerator, s service.AccountService) CreateAccount {
-	return CreateAccount{
-		uuid:    uuid,
-		service: s,
-	}
+func NewCreateAccount() CreateAccount {
+	return CreateAccount{}
 }
 
 type account struct {
 	DocumentIdentifier string `json:"documentIdentifier"`
 }
 
-func (ca CreateAccount) Handle() action.HandlerFunc {
+func (ca *CreateAccount) Execute() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		ca.configure()
+
 		defer r.Body.Close()
 
 		decoder := json.NewDecoder(r.Body)
@@ -40,7 +41,7 @@ func (ca CreateAccount) Handle() action.HandlerFunc {
 		err := decoder.Decode(&acc)
 
 		if err != nil {
-			log.Fatal(err)
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 
 		id := ca.uuid.Generate()
@@ -49,4 +50,11 @@ func (ca CreateAccount) Handle() action.HandlerFunc {
 
 		ca.service.Create(accountDTO)
 	}
+}
+
+func (ca *CreateAccount) configure() {
+	ca.uuid = uuid.NewUuidGenerator()
+	db := database.GetConnection()
+	ca.dao = dao.NewAccountDAO(db)
+	ca.service = service.NewAccountService(ca.dao)
 }

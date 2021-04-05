@@ -21,7 +21,6 @@ func NewAccountDAO(conn *sql.DB) *Account {
 
 func (a *Account) Create(ac dto.AccountDTO) {
 	defer a.db.Close()
-
 	insert, err := a.db.Prepare("INSERT INTO account(id, document_identifier) VALUES(?,?)")
 	if err != nil {
 		panic(err)

@@ -14,14 +14,14 @@ type Config struct {
 	DBName   string
 }
 
-func Load() *Config {
+func Load() Config {
 	err := godotenv.Load(".env")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return &Config{
+	return Config{
 		DBUser:   os.Getenv("DATABASE_USER"),
 		DBPasswd: os.Getenv("DATABASE_PASS"),
 		DBAddr:   os.Getenv("DATABASE_HOST"),
