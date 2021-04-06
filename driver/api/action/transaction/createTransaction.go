@@ -30,10 +30,12 @@ func (ca *CreateTransaction) Execute() http.Handler {
 
 		err := decoder.Decode(&t)
 
-		if err != nil {
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-		}
+		w.Header().Add("Content-Type", "application/json")
 
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 		id := ca.uuid.Generate()
 
 		t.Code = id.String()
@@ -43,8 +45,6 @@ func (ca *CreateTransaction) Execute() http.Handler {
 		response := map[string]string{
 			"code": id.String(),
 		}
-
-		w.Header().Add("Content-Type", "application/json")
 
 		_ = json.NewEncoder(w).Encode(response)
 	})
