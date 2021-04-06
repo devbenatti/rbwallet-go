@@ -1,3 +1,11 @@
+CREATE USER IF NOT EXISTS 'saitama'@'%' IDENTIFIED BY 'xablau';
+GRANT USAGE ON * . * TO 'saitama'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON onepuchman.* TO 'saitama'@'%';
+
+CREATE DATABASE IF NOT EXISTS onepuchman;
+
+USE onepuchman;
+
 CREATE TABLE operations (
   `id` 				INT(11)			NOT NULL AUTO_INCREMENT,
   `description` 			VARCHAR(100)				NOT NULL,
@@ -5,7 +13,6 @@ CREATE TABLE operations (
   `created_at` TIMESTAMP NOT NULL DEFAULT NOW(),
   PRIMARY KEY (`id`)
 );
-
 
 CREATE TABLE `accounts` (
   `id` varchar(36) NOT NULL,
@@ -38,4 +45,3 @@ VALUES(3, 'SAQUE');
 INSERT INTO onepuchman.operations
 (id, description)
 VALUES(4, 'PAGAMENTO');
-

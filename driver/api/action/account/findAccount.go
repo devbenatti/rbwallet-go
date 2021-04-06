@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var _ action.Action = (*CreateAccount)(nil)
+var _ action.Action = (*FindAccount)(nil)
 
 type FindAccount struct {
 	accountBehavior
@@ -19,8 +19,8 @@ func NewFindAccount() FindAccount {
 	return FindAccount{}
 }
 
-func (ca *FindAccount) Execute() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (ca *FindAccount) Execute() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ca.configure()
 
 		vars := mux.Vars(r)
@@ -38,5 +38,5 @@ func (ca *FindAccount) Execute() http.HandlerFunc {
 		}
 
 		_ = json.NewEncoder(w).Encode(result)
-	}
+	})
 }

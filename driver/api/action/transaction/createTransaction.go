@@ -18,8 +18,8 @@ func NewCreateTransaction() CreateTransaction {
 	return CreateTransaction{}
 }
 
-func (ca *CreateTransaction) Execute() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (ca *CreateTransaction) Execute() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ca.configure()
 
 		defer r.Body.Close()
@@ -47,5 +47,5 @@ func (ca *CreateTransaction) Execute() http.HandlerFunc {
 		w.Header().Add("Content-Type", "application/json")
 
 		_ = json.NewEncoder(w).Encode(response)
-	}
+	})
 }

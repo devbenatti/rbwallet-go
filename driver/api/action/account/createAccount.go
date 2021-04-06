@@ -2,6 +2,7 @@ package action
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/devbenatti/rbwallet-go/driver/api/action"
@@ -18,8 +19,8 @@ func NewCreateAccount() CreateAccount {
 	return CreateAccount{}
 }
 
-func (ca *CreateAccount) Execute() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (ca *CreateAccount) Execute() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ca.configure()
 
 		defer r.Body.Close()
@@ -31,6 +32,7 @@ func (ca *CreateAccount) Execute() http.HandlerFunc {
 		err := decoder.Decode(&acc)
 
 		if err != nil {
+			fmt.Println(err.Error())
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
@@ -48,5 +50,5 @@ func (ca *CreateAccount) Execute() http.HandlerFunc {
 		w.Header().Add("Content-Type", "application/json")
 
 		_ = json.NewEncoder(w).Encode(response)
-	}
+	})
 }
