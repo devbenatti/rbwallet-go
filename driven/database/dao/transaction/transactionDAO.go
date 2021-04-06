@@ -1,7 +1,7 @@
 package dao
 
-import dto "github.com/devbenatti/rbwallet-go/dto/transaction"
+import "github.com/devbenatti/rbwallet-go/model"
 
 type TransactionDAO interface {
-	Create(t dto.TransactionDTO)
+	Create(t model.Transaction)
 }

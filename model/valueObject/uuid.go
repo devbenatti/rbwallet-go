@@ -6,7 +6,7 @@ type Uuid struct {
 	val string
 }
 
-func (u *Uuid) Val() string {
+func (u *Uuid) String() string {
 	return u.val
 }
 

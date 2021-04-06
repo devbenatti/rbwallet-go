@@ -7,7 +7,9 @@ import (
 	"time"
 
 	"github.com/devbenatti/rbwallet-go/config"
-	action "github.com/devbenatti/rbwallet-go/driver/api/action/account"
+	accountAction "github.com/devbenatti/rbwallet-go/driver/api/action/account"
+	transactionAction "github.com/devbenatti/rbwallet-go/driver/api/action/transaction"
+
 	"github.com/gorilla/mux"
 )
 
@@ -24,9 +26,15 @@ func NewServer() *Server {
 }
 
 func (s *Server) configureHandlers() {
-	createAccount := action.NewCreateAccount()
+	createAccount := accountAction.NewCreateAccount()
+	findAccount := accountAction.NewFindAccount()
 
-	s.router.HandleFunc("/account", createAccount.Execute()).Methods(http.MethodPost)
+	s.router.HandleFunc("/accounts", createAccount.Execute()).Methods(http.MethodPost)
+	s.router.HandleFunc("/accounts/{id}", findAccount.Execute()).Methods(http.MethodGet)
+
+	createTransaction := transactionAction.NewCreateTransaction()
+
+	s.router.HandleFunc("/transactions", createTransaction.Execute()).Methods(http.MethodPost)
 }
 
 func (s *Server) Listen() {

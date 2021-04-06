@@ -21,14 +21,16 @@ func NewAccountDAO(conn *sql.DB) *Account {
 
 func (a *Account) Create(ac dto.AccountDTO) {
 	defer a.db.Close()
-	insert, err := a.db.Prepare("INSERT INTO account(id, document_identifier) VALUES(?,?)")
+
+	insert, err := a.db.Prepare("INSERT INTO accounts(id, document_identifier) VALUES(?,?)")
+
 	if err != nil {
 		panic(err)
 	}
 
-	id := ac.ID()
+	id := ac.ID
 
-	_, err = insert.Exec(id.Val(), ac.DocumentIdentifier())
+	_, err = insert.Exec(id, ac.DocumentIdentifier)
 
 	if err != nil {
 		panic(err)
@@ -40,7 +42,7 @@ func (a *Account) FindByID(id valueObject.Uuid) *dto.AccountDTO {
 
 	var accountID, documentIdentifier string
 
-	query := a.db.QueryRow("SELECT * FROM account where id = ?", id.Val())
+	query := a.db.QueryRow("SELECT * FROM accounts where id = ?", id.String())
 
 	err := query.Scan(&accountID, &documentIdentifier)
 

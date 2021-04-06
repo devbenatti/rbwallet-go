@@ -33,6 +33,10 @@ func (o *Operation) Flow() flow {
 	return o.flow
 }
 
+func (o *Operation) Type() OperationType {
+	return o.operationType
+}
+
 func getFlow(ot OperationType) flow {
 	flows := map[OperationType]flow{
 		cashPurchase:        outFlow,

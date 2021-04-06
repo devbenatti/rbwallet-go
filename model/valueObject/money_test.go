@@ -5,8 +5,8 @@ import "testing"
 func TestNewMoney(t *testing.T) {
 	m := NewMoney(50.51)
 
-	if m.Val() != 50.51 {
-		t.Errorf("expect '%.2f', result '%.2f'", 50.51, m.Val())
+	if m.String() != 50.51 {
+		t.Errorf("expect '%.2f', result '%.2f'", 50.51, m.String())
 	}
 }
 
@@ -37,7 +37,7 @@ func TestAdd(t *testing.T) {
 		t.Run("Add money", func(t *testing.T) {
 			result := tt.money.Add(tt.moneyToAdd)
 			if !result.Equals(tt.expected) {
-				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
+				t.Errorf("result %.2f expect %.2f", result.String(), tt.expected)
 			}
 		})
 	}
@@ -70,7 +70,7 @@ func TestSubtract(t *testing.T) {
 		t.Run("Add money", func(t *testing.T) {
 			result := tt.money.Subtract(tt.moneyToSubtract)
 			if !result.Equals(tt.expected) {
-				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
+				t.Errorf("result %.2f expect %.2f", result.String(), tt.expected)
 			}
 		})
 	}
@@ -98,7 +98,7 @@ func TestMultiply(t *testing.T) {
 		t.Run("Multiply money", func(t *testing.T) {
 			result := tt.money.Multiply(tt.m)
 			if !result.Equals(tt.expected) {
-				t.Errorf("result %.2f expect %.2f", result.Val(), tt.expected)
+				t.Errorf("result %.2f expect %.2f", result.String(), tt.expected)
 			}
 		})
 	}
@@ -122,8 +122,8 @@ func TestNegative(t *testing.T) {
 	for _, tt := range testsAdd {
 		t.Run("Negative money", func(t *testing.T) {
 			tt.money.Negative()
-			if tt.money.Val() != tt.expected {
-				t.Errorf("result %.2f expect %.2f", tt.money.Val(), tt.expected)
+			if tt.money.String() != tt.expected {
+				t.Errorf("result %.2f expect %.2f", tt.money.String(), tt.expected)
 			}
 		})
 	}
