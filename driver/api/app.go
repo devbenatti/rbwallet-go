@@ -9,7 +9,6 @@ import (
 	"github.com/devbenatti/rbwallet-go/config"
 	accountAction "github.com/devbenatti/rbwallet-go/driver/api/action/account"
 	transactionAction "github.com/devbenatti/rbwallet-go/driver/api/action/transaction"
-	"github.com/devbenatti/rbwallet-go/driver/api/middleware"
 	"github.com/urfave/negroni"
 
 	"github.com/gorilla/mux"
@@ -32,12 +31,8 @@ func NewServer() *Server {
 func (s *Server) configureHandlers() {
 	createAccount := accountAction.NewCreateAccount()
 	findAccount := accountAction.NewFindAccount()
-	payloadValidator := middleware.NewPayloadValidator()
 
-	s.router.Handle("/accounts", s.ngn.With(
-		negroni.Wrap(payloadValidator.Execute()),
-		negroni.Wrap(createAccount.Execute()),
-	)).Methods(http.MethodPost)
+	s.router.Handle("/accounts", createAccount.Execute()).Methods(http.MethodPost)
 
 	s.router.Handle("/accounts/{id}", findAccount.Execute()).Methods(http.MethodGet)
 
